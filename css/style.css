@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css?family=Khula&display=swap');
+* {
+    box-sizing: border-box;
+  }
+html { overflow-y: scroll; overflow-x:hidden; }
+body {
+    background-color: #16D9E3;
+    font-family: 'Muli', sans-serif;
+    height: auto;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+    margin: 0;
+}
+main {
+    width: 1000px;
+}
+header {
+    line-height: 1.4;
+    font-size: 4rem;
+    text-align: center;
+    position: relative;
+}
+.container {
+    position: relative;
+    width: 1000px;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+}
+button {
+    height: 40px;
+    width: 100px;
+    box-shadow: 4px 4px 9px rgba(198, 198, 198, 0.36);
+    background: linear-gradient(90deg, #209cff 0%, #68e0cf 100%);
+    text-align: center;
+    border-radius: 20px;
+    padding: 0.5rem 0.1rem;
+    margin: 0.1rem 2rem;
+    color: #000000;
+}
+div {
+    margin: 0.2rem;
+}
+.edit {
+    background: linear-gradient(90deg, #20ffa9 0%, #68e0cf 100%);
+}
+.delete {
+    background: linear-gradient(90deg, #ff203e 0%, #e06898 100%);
+}
+.box {
+    display: inline-block;
+    width:500px;
+    height: auto;
+    line-height: 1.4;
+    font-size: 1rem;
+    padding: 2%;
+    margin: 0.1rem 0.2rem;
+    border:1px solid #000000;
+}
+#xhr div {
+    margin: 0.6rem;
+    text-align: left;
+    background-color: #9becf1;
+    border:1px solid #f7f6f6;
+}
+#fetch div {
+    margin: 0.1rem;
+    text-align: left;
+    background-color: #9becf1;
+    border:1px solid #f7f6f6;
+}
+.box.xhr {
+    height: auto;
+}
+.box.fetch {
+    display: inline-block;
+    justify-content: center;
+    height: auto;
+    overflow: hidden;
+}
+.hide {
+    display: none;
+}
+.loader {
+    border: 5px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 5px solid #3498db;
+    width: 25px;
+    height: 25px;
+    -webkit-animation: spin 2s linear infinite; /* Safari */
+    animation: spin 2s linear infinite;
+  }
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }  
+  @-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+  }
