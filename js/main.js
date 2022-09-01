@@ -8,6 +8,13 @@ const xhrBtn = document.querySelector('.xhr')
 const fetchBtn = document.querySelector('.fetch')
 let xhrFrame = document.getElementById('xhr')
 let fetchFrame = document.getElementById('fetch')
+let loader = document.querySelector('.loader')
+function spin(el) {
+    el.classList.remove('hide')
+    sleep(1000).then(() => {
+        el.classList.add('hide')
+    })
+}
 function sendXHR(method, url) {
     return new Promise((resolve, reject) => {
         const xhr = new XMLHttpRequest()
@@ -27,9 +34,8 @@ function sendXHR(method, url) {
     })
 }
 xhrBtn.addEventListener('click', () => {
-    xhrFrame.innerHTML = 'Loading...'
+    spin(loader)
     sleep(1000).then(() => {
-        xhrFrame.innerHTML = ''
         sendXHR("GET", url)
         .then(data => {
             for(let i = 0; i < data.length; i++) {
@@ -71,19 +77,17 @@ if (response.ok) {
 }
 }
 fetchBtn.addEventListener('click', () => {
-    fetchFrame.innerHTML = 'Loading...'
+    spin(loader)
     sleep(1000).then(() => {
-    fetchFrame.innerHTML = ''
     getRequest()
     .then(res => {
         for(let i = 0; i < res.length; i++) {
-            let count = i
-            fetchFrame.innerHTML += `<div class="block ${count.toString()}">
-            <span class="${count.toString()}">${res[i].name}</span></br>
-            <button class="edit ${count.toString()}">Edit</button>
-            <button class="delete ${count.toString()}">Delete</button></br>
-            <input type="text" value="" class="input hide ${count.toString()}">
-            <button class="save hide ${count.toString()}">Save</button></div></br>`
+            fetchFrame.innerHTML += `<div class="block">
+            <span>${res[i].name}</span></br>
+            <button class="edit">Edit</button>
+            <button class="delete">Delete</button></br>
+            <input type="text" value="" class="input hide">
+            <button class="save hide">Save</button></div>`
         } 
         let inputs = document.querySelectorAll('input')
         let edditBtns = document.querySelectorAll('.edit')
@@ -97,7 +101,7 @@ fetchBtn.addEventListener('click', () => {
                 saveBtns[i].classList.remove('hide')
             })
             deleteBtns[i].addEventListener('click', () => {
-                usersName[i].innerHTML = `Loading...`
+                spin(loader)
                 sleep(1000).then(() => {
                 const urlChange = `https://jsonplaceholder.typicode.com/posts/${res[i].id}`
                 let body = {id: res[i].id}
@@ -115,23 +119,20 @@ fetchBtn.addEventListener('click', () => {
                 const urlChange = `https://jsonplaceholder.typicode.com/posts/${res[i].id}`
                 let body = {id: res[i].id, name: e.value.trim()}
                 saveBtns[i].addEventListener('click', () => {
-                    putRequest('PUT', urlChange, body)
-                    .then(response => {
-                        usersName[i].innerHTML = response.name
-                        e.value = ''
-                        e.classList.add('hide')
-                        saveBtns[i].classList.add('hide')
+                    spin(loader)
+                    sleep(1000).then(() => {
+                        putRequest('PUT', urlChange, body)
+                        .then(response => {
+                            usersName[i].innerHTML = response.name
+                            e.value = ''
+                            e.classList.add('hide')
+                            saveBtns[i].classList.add('hide')
+                        })
+                        .catch(err => console.log(err))
                     })
-                    .catch(err => console.log(err))
-                })
+                })       
             })
         })
     })
 })
 })
-function spinner(el) {
-    el.innerHTML +=`<div class="loader"></div>`
-    sleep(1000).then(() => {
-        el.classList.add('hide')
-    })
-}
