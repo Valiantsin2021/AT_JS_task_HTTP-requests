@@ -105,9 +105,9 @@ fetchBtn.addEventListener('click', () => {
                 sleep(1000).then(() => {
                 const urlChange = `https://jsonplaceholder.typicode.com/posts/${res[i].id}`
                 let body = {id: res[i].id}
-                putRequest('PUT', urlChange, body)
-                .then(response => {
-                    alert(`user with id:${response.id} has been deleted`)
+                putRequest('DELETE', urlChange, body)
+                .then(() => {
+                    alert(`user with id:${res[i].id} has been deleted`)
                     blocks[i].remove()
                 })
                 .catch(err => console.log(err))
