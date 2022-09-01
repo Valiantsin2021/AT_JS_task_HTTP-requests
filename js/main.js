@@ -113,24 +113,26 @@ fetchBtn.addEventListener('click', () => {
                 .catch(err => console.log(err))
                 })    
             })
-        })   
+        })      
         inputs.forEach((e, i) => {
             e.addEventListener('change', () => {
                 const urlChange = `https://jsonplaceholder.typicode.com/posts/${res[i].id}`
-                let body = {id: res[i].id, name: e.value.trim()}
                 saveBtns[i].addEventListener('click', () => {
+                    let body = {id: res[i].id, name: e.value.trim()}
+                    if(body.name !== '') {
                     spin(loader)
                     sleep(1000).then(() => {
-                        putRequest('PUT', urlChange, body)
-                        .then(response => {
-                            usersName[i].innerHTML = response.name
-                            e.value = ''
-                            e.classList.add('hide')
-                            saveBtns[i].classList.add('hide')
-                        })
-                        .catch(err => console.log(err))
+                    putRequest('PUT', urlChange, body)
+                    .then(response => {
+                        usersName[i].innerHTML = response.name
+                        e.value = ''
+                        e.classList.add('hide')
+                        saveBtns[i].classList.add('hide')
                     })
-                })       
+                    .catch(err => console.log(err))
+                    })
+                    }
+                })  
             })
         })
     })
